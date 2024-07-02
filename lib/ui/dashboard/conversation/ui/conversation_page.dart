@@ -8,9 +8,7 @@ class ConversationPage extends StatelessWidget {
     return const Scaffold(
       body: SafeArea(
         child: Column(
-          children: [
-            Text('ConversationPage')
-          ],
+          children: [Text('ConversationPage')],
         ),
       ),
     );

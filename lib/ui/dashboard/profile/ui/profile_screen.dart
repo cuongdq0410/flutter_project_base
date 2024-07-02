@@ -1,6 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:collection/collection.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen(
@@ -50,7 +50,7 @@ class _ProfileScreenScreenState extends State<ProfileScreen>
   }
 
   void _onTabTap(BuildContext context, int index) {
-    // widget.navigationShell.goBranch(index);
+    widget.navigationShell.goBranch(index);
 
     /// don't want to keep state
     /// use this

@@ -3,5 +3,8 @@
   "login": "Đăng nhập",
   "change_language": "Thay đổi ngôn ngữ",
   "english": "Tiếng Anh",
-  "vietnamese": "Tiếng Việt"
+  "vietnamese": "Tiếng Việt",
+  "home": "Trang chủ",
+  "chat": "Tin nhắn",
+  "profile": "Cá nhân"
 }

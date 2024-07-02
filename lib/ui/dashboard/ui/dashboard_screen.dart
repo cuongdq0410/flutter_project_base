@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_base/ui/widget/route_define.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../generated/l10n.dart';
+
 class DashboardScreen extends StatelessWidget {
   final List<Widget> children;
   final StatefulNavigationShell navigationShell;
@@ -17,18 +19,20 @@ class DashboardScreen extends StatelessWidget {
         index: navigationShell.currentIndex,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        elevation: 10,
+        backgroundColor: Colors.white,
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: const Icon(Icons.home),
+            label: S.of(context).home,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chat',
+            icon: const Icon(Icons.chat),
+            label: S.of(context).chat,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Profile',
+            icon: const Icon(Icons.account_circle),
+            label: S.of(context).profile,
           ),
         ],
         currentIndex: _calculateSelectedIndex(context),
