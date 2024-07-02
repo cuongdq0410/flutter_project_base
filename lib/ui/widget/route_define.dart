@@ -198,6 +198,7 @@ class GenerateRoute {
             child: ChatScreen(
               chatId: state.pathParameters['id'],
               chatName: state.pathParameters['chatName'],
+              chatScreenArgs: state.extra as ChatScreenArgs?,
             ),
           );
         },
