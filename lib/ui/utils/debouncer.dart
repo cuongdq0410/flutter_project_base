@@ -12,8 +12,7 @@ class Debouncer {
   }
 
   void dispose() {
-    _timer
-        ?.cancel(); // You can comment-out this line if you want. I am not sure if this call brings any value.
+    _timer?.cancel();
     _timer = null;
   }
 }

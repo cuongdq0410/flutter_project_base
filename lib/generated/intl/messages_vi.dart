@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_language":
             MessageLookupByLibrary.simpleMessage("Thay đổi ngôn ngữ"),
         "chat": MessageLookupByLibrary.simpleMessage("Tin nhắn"),
+        "check_your_internet_connection": MessageLookupByLibrary.simpleMessage(
+            "Kiểm tra kết nối mạng của bạn"),
         "english": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),

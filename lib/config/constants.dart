@@ -32,28 +32,28 @@ class Constants {
 
   factory Constants._dev() {
     return const Constants(
-      endpoint: 'http://stg-api-mipig-342327664.ap-northeast-1.elb.amazonaws.com/api/v2',
-      socket: 'wss://socket-dev.voichat.com',
-      packageName: 'jp.mipigcafe.mipig.v2.stg',
-      bundleId: 'jp.mipig-cafe.mipig.v2.stg',
+      endpoint: 'https://api.pexels.com/v1',
+      socket: '',
+      packageName: '',
+      bundleId: '',
     );
   }
 
   factory Constants._stag() {
     return const Constants(
-      endpoint: 'http://stg-api-mipig-342327664.ap-northeast-1.elb.amazonaws.com/api/v2',
-      socket: 'wss://socket-dev.voichat.com',
-      packageName: 'jp.mipigcafe.mipig.v2.stg',
-      bundleId: 'jp.mipig-cafe.mipig.v2.stg',
+      endpoint: 'https://api.pexels.com/v1',
+      socket: '',
+      packageName: '',
+      bundleId: '',
     );
   }
 
   factory Constants._prod() {
     return const Constants(
-      endpoint: 'http://stg-api-mipig-342327664.ap-northeast-1.elb.amazonaws.com/api/v2',
-      socket: 'wss://socket-dev.voichat.com',
-      packageName: 'jp.mipigcafe.mipig.v2',
-      bundleId: 'jp.mipig-cafe.mipig.v2',
+      endpoint: 'https://api.pexels.com/v1',
+      socket: '',
+      packageName: '',
+      bundleId: '',
     );
   }
 

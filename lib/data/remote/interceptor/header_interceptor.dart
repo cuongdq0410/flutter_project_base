@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_bloc_base/data/storage/session_utils.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
-import '../../storage/session_utils.dart';
 
 class HeaderInterceptor extends InterceptorsWrapper {
   final String accept = 'Accept';
@@ -19,7 +18,7 @@ class HeaderInterceptor extends InterceptorsWrapper {
 
     final token = SessionUtils.getAccessToken();
 
-    if (token.isNotEmpty) options.headers[authHeaderKey] = '$bearer $token';
+    if (token.isNotEmpty) options.headers[authHeaderKey] = '$token';
     options.headers[userAgentKey] = userAgentValue;
 
     handler.next(options);

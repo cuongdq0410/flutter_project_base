@@ -69,7 +69,7 @@ class UpdateAppDialog extends StatelessWidget {
               ),
             ),
             buildDescriptionText(isForceUpdate),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             button ??
                 Visibility(
                   visible: buttonText != null,

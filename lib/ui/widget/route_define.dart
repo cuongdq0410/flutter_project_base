@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_base/domain/usecases/photo_usecase.dart';
 import 'package:flutter_bloc_base/domain/usecases/usecases.dart';
 import 'package:flutter_bloc_base/injection/injector.dart';
 import 'package:flutter_bloc_base/ui/chat/ui/chat_screen.dart';
@@ -75,7 +76,7 @@ class GenerateRoute {
                   return NoTransitionPage(
                     child: widgetBuilder(
                       const HomeScreen(),
-                      bloc: HomeBloc(),
+                      bloc: HomeBloc(injector.get<PhotoUseCase>()),
                     ),
                   );
                 },

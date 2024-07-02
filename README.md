@@ -1,5 +1,5 @@
 # Bloc Base
-
+# Flutter Version: 3.22.2
 ## Getting Started
 
 ### Configuration Environment Running

@@ -43,43 +43,53 @@ abstract class BaseState<S extends BaseScreen, B extends Bloc>
   /// NAVIGATOR
   ///***************************************************************************
 
-  Future<dynamic> pushScreen(String routeName, {dynamic arguments}) {
+  Future<dynamic> pushNameScreen(
+    String routeName, {
+    Map<String, String> pathParameters = const <String, String>{},
+    Map<String, dynamic> queryParameters = const <String, dynamic>{},
+    Object? extra,
+  }) {
     debugPrint("pushScreen ===> $routeName");
-    return context.pushNamed(routeName, extra: arguments ?? {});
-  }
-
-  void pushDialog(StatefulWidget screen) {
-    Navigator.of(context).push(
-      PageRouteBuilder(
-        opaque: false,
-        fullscreenDialog: true,
-        pageBuilder: (_, __, ___) => screen,
-      ),
+    return context.pushNamed(
+      routeName,
+      pathParameters: pathParameters,
+      queryParameters: queryParameters,
+      extra: extra,
     );
   }
 
-  void replaceScreen(String routeName, {Map<String, String>? arguments}) {
-    Navigator.popUntil(context, (route) => route.isFirst);
-    debugPrint("replaceScreen ===> $routeName");
-    context.pushReplacementNamed(routeName, pathParameters: arguments ?? {});
+  void pushReplacementNamed(
+    String routeName, {
+    Map<String, String> pathParameters = const <String, String>{},
+    Map<String, dynamic> queryParameters = const <String, dynamic>{},
+    Object? extra,
+  }) {
+    debugPrint("pushReplacementNamed ===> $routeName");
+    context.pushReplacementNamed(
+      routeName,
+      pathParameters: pathParameters,
+      queryParameters: queryParameters,
+      extra: extra,
+    );
   }
 
-  void popScreen() {
-    debugPrint("popScreen <=== ");
+  void pushNameAndRemoveUtil(
+    String routeName, {
+    Map<String, String> pathParameters = const <String, String>{},
+    Map<String, dynamic> queryParameters = const <String, dynamic>{},
+    Object? extra,
+  }) {
+    debugPrint("pushNameAndRemoveUtil ===> $routeName");
+    context.goNamed(
+      routeName,
+      pathParameters: pathParameters,
+      queryParameters: queryParameters,
+      extra: extra,
+    );
+  }
+
+  void pop() {
+    debugPrint("pop <=== ");
     context.pop();
-  }
-
-  void popMultiScreen(int pop) {
-    for (int i = 0; i < pop; i++) {
-      context.pop();
-    }
-  }
-
-  void popUntilScreen(Type screen) {
-    debugPrint("${screen.toString()} <=== popUntilScreen");
-    Navigator.popUntil(
-      context,
-      (route) => route.isFirst || route.settings.name == screen.toString(),
-    );
   }
 }

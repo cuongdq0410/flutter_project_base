@@ -1,17 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc_base/data/storage/session_utils.dart';
+import 'package:flutter_bloc_base/domain/usecases/user_usecase.dart';
+import 'package:flutter_bloc_base/ui/splash/models/app_version_data.dart';
+import 'package:flutter_bloc_base/ui/utils/device_info_util.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:meta/meta.dart';
-
-import '../../../domain/usecases/user_usecase.dart';
-import '../../utils/device_info_util.dart';
-import '../models/app_version_data.dart';
-
-part 'splash_event.dart';
-
-part 'splash_state.dart';
 
 part 'splash_bloc.freezed.dart';
+part 'splash_event.dart';
+part 'splash_state.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final UserUseCase _userUseCase;
@@ -23,7 +19,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         final localVersion = await DeviceInfoUtil.getAppVersion();
         String remoteVersion = response.version ?? '1.0.0';
         if (!(await DeviceInfoUtil.isAppOutdated(remoteVersion))) {
-          checkLoginStatus(emit);
+          add(const _CheckAuthenticateStatus());
         } else {
           emit(
             SplashState.updateApp(
@@ -32,7 +28,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
                 remoteVersion,
                 false,
                 () {
-                  checkLoginStatus(emit);
+                  add(const _CheckAuthenticateStatus());
                 },
               ),
             ),
@@ -44,9 +40,11 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         );
       }
     });
+    on<_CheckAuthenticateStatus>(checkLoginStatus);
   }
 
-  checkLoginStatus(Emitter<SplashState> emit) async {
+  checkLoginStatus(
+      _CheckAuthenticateStatus event, Emitter<SplashState> emit) async {
     final token = SessionUtils.getAccessToken();
     if (token.isEmpty) {
       emit(const SplashState.unAuthenticate());

@@ -6,7 +6,8 @@ analyzer:
     "**/*.freezed.dart",
     "lib/gen/**",
     "**/*.mocks.dart",
-    "lib/generated_plugin_registrant.dart"
+    "lib/generated_plugin_registrant.dart",
+    "lib/generated/**"
   ]
 
   errors:

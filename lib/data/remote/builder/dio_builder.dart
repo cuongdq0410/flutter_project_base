@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc_base/config/constants.dart';
+import 'package:flutter_bloc_base/data/remote/interceptor/header_interceptor.dart';
+import 'package:flutter_bloc_base/data/remote/interceptor/refresh_token_interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../../../config/constants.dart';
-import '../interceptor/header_interceptor.dart';
-import '../interceptor/refresh_token_interceptor.dart';
 class DioBuilder extends DioMixin implements Dio {
   // create basic information for request
   final String contentType = 'application/json';

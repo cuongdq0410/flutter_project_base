@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change Language"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
+        "check_your_internet_connection": MessageLookupByLibrary.simpleMessage(
+            "Check your internet connection"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),

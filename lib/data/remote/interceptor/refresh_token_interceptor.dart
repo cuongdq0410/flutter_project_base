@@ -1,17 +1,16 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_bloc_base/data/models/request/refresh_token_request.dart';
+import 'package:flutter_bloc_base/data/remote/api/auth_api.dart';
+import 'package:flutter_bloc_base/data/remote/builder/dio_builder.dart';
 import 'package:flutter_bloc_base/data/storage/session_utils.dart';
+import 'package:flutter_bloc_base/ui/widget/app_navigator.dart';
+import 'package:flutter_bloc_base/ui/widget/route_define.dart';
 import 'package:go_router/go_router.dart';
 import 'package:retry/retry.dart';
 
-import '../../../ui/widget/app_navigator.dart';
-import '../../../ui/widget/route_define.dart';
-import '../../request/refresh_token_request.dart';
-import '../api/auth_api.dart';
-import '../builder/dio_builder.dart';
-
-class RefreshTokenInterceptor extends Interceptor {
+class RefreshTokenInterceptor extends QueuedInterceptor {
   final Dio dio;
 
   RefreshTokenInterceptor({required this.dio});

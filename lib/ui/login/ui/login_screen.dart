@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_base/gen/assets.gen.dart';
 import 'package:flutter_bloc_base/ui/base/base_screen.dart';
 import 'package:flutter_bloc_base/ui/widget/common_button.dart';
 import 'package:flutter_bloc_base/ui/widget/route_define.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:flutter_bloc_base/gen/assets.gen.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../generated/l10n.dart';
 import '../bloc/login_bloc.dart';
@@ -30,7 +29,7 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
         state.when(
           init: () {},
           loginSuccess: () {
-            context.goNamed(RouteDefine.homeScreen.name);
+            pushNameAndRemoveUtil(RouteDefine.homeScreen.name);
           },
         );
       },

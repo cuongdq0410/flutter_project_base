@@ -4,6 +4,8 @@ import 'package:flutter_bloc_base/data/models/annotation/tag.dart';
 import 'package:flutter_bloc_base/data/models/exception/base_exception.dart';
 import 'package:flutter_bloc_base/data/models/exception/inline_exception.dart';
 import 'package:flutter_bloc_base/data/models/exception/toast_exception.dart';
+import 'package:flutter_bloc_base/generated/l10n.dart';
+import 'package:flutter_bloc_base/ui/widget/app_navigator.dart';
 
 import '../models/error/error_item_data_model.dart';
 
@@ -24,7 +26,10 @@ class ExceptionMapper extends BaseExceptionMapper<AppError, BaseException> {
     if (error is DioException) error = AppError.from(error as DioException);
     switch (error.type) {
       case AppErrorType.network:
-        return ToastException(-1, 'Check your network');
+        return ToastException(
+          -1,
+          S.of(AppNavigator.currentContext!).check_your_internet_connection,
+        );
 
       case AppErrorType.server:
         if (error.errors?.length == 1) {

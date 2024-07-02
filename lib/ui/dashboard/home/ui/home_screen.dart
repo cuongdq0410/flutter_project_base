@@ -1,86 +1,94 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_base/generated/l10n.dart';
-import 'package:flutter_bloc_base/ui/chat/ui/chat_screen.dart';
-import 'package:flutter_bloc_base/ui/widget/route_define.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc_base/ui/base/base_screen.dart';
+import 'package:flutter_bloc_base/ui/dashboard/home/bloc/home_bloc.dart';
+import 'package:flutter_bloc_base/ui/widget/common_refresher.dart';
+import 'package:flutter_bloc_base/ui/widget/custom_cache_image_network.dart';
 
-import '../../../app/bloc/app_bloc.dart';
+import '../../../utils/debouncer.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends BaseScreen {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    context.pushNamed(
-                      RouteDefine.chatScreen.name,
-                      pathParameters: {
-                        "id": "1",
-                        "chatName": "Chat name",
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends BaseState<HomeScreen, HomeBloc> {
+  Debouncer _debouncer = Debouncer();
+
+  @override
+  afterBuild() {
+    bloc.add(const HomeEvent.getPhoto());
+  }
+
+  @override
+  Widget buildContent(BuildContext context) {
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  TextFormField(
+                    onChanged: (value) {
+                      _debouncer.call(
+                        () {
+                          bloc.add(HomeEvent.getPhoto(query: value));
+                        },
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: CommonRefresher(
+                      enablePullDown: true,
+                      enablePullUp: state.photos.photos.length <
+                          state.photos.pagination.totalResults,
+                      onRefresh: () {
+                        bloc.add(const HomeEvent.getPhoto());
                       },
-                      extra: ChatScreenArgs(
-                        chatId: 'Extra id 1',
-                        chatName: 'Extra chat name 1',
-                      ),
-                    );
-                  },
-                  child: const Text('Push Chat'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    context.go('/${RouteDefine.homeScreen.name}/details');
-                  },
-                  child: const Text('Nest Navigation'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    context.push('/parent-page');
-                  },
-                  child: const Text('Push to Parent Page'),
-                ),
-                Text(S.of(context).change_language),
-                const SizedBox(height: 8),
-                BlocBuilder<AppBloc, AppState>(
-                  builder: (context, state) {
-                    return DropdownButtonFormField<Locale>(
-                      value: state.locale,
-                      onChanged: (Locale? newValue) {
-                        if (newValue == null) return;
-                        context.read<AppBloc>().add(
-                              AppEvent.changeLanguage(newValue),
-                            );
-                      },
-                      items: context
-                          .read<AppBloc>()
-                          .supportedLanguages
-                          .map<DropdownMenuItem<Locale>>((Locale value) {
-                        return DropdownMenuItem<Locale>(
-                          value: value,
-                          child: Text(
-                            context
-                                .read<AppBloc>()
-                                .getLanguageName(context, value),
-                          ),
+                      onLoading: () {
+                        bloc.add(
+                          const HomeEvent.getPhoto(isRefresh: false),
                         );
-                      }).toList(),
-                    );
-                  },
-                )
-              ],
+                      },
+                      controller: bloc.refreshController,
+                      child: state.photos.photos.isEmpty &&
+                              state.listStatus == ListStatus.loading
+                          ? const Center(child: CircularProgressIndicator())
+                          : ListView.builder(
+                              padding: EdgeInsets.zero,
+                              itemCount: state.photos.photos.length,
+                              itemBuilder: (context, index) {
+                                final photo = state.photos.photos[index];
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: CustomCacheImageNetwork(
+                                    radius: 20,
+                                    height: 300,
+                                    width: double.infinity,
+                                    imageUrl: photo.originalSrcUrl,
+                                  ),
+                                );
+                              },
+                            ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
+  }
+
+  @override
+  void dispose() {
+    _debouncer.dispose();
+    super.dispose();
   }
 }

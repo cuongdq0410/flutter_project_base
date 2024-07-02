@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
-import '../../request/refresh_token_request.dart';
-import '../../response/login_response.dart';
+import '../../models/request/refresh_token_request.dart';
+import '../../models/response/login_response.dart';
 
 part 'auth_api.g.dart';
 
